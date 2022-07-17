@@ -8,6 +8,7 @@ import { topics } from '../utils/constants';
 
 import useAuthStore from '../store/authstore';
 import { client } from '../utils/client';
+import { BASE_URL } from '../utils';
 
 const Upload = () => {
     const [isUploading, setIsUploading] = useState(false);
@@ -61,7 +62,7 @@ const Upload = () => {
                 topic: category
             }
 
-            await axios.post('http://localhost:3000/api/post', doc);
+            await axios.post(`${BASE_URL}/api/post`, doc);
             router.push('/');
         }
     }
