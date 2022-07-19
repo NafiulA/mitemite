@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { uuid } from 'uuidv4';
 import { client } from '../../../utils/client';
 import { postDetailQuery } from '../../../utils/queries';
 
@@ -22,8 +23,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             {
                 comment: comment,
                 _key: uuid(),
-                _ref: userId
+                postedBy: {
+                    _type: 'postedBy',
+                    _ref: userId
+                }
             }
-        ]).commit()
+        ]).commit();
+
+        res.status(200).json(data);
     }
 }
