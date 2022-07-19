@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -9,12 +9,18 @@ import { IoMdAdd } from 'react-icons/io';
 import logo from "../utils/tiktik-logo.png"
 import { createOrGetUser } from '../utils';
 import useAuthStore from '../store/authstore';
+import { IUser } from '../types';
 
 
 const Navbar = () => {
+    const [user, setUser] = useState<IUser | null>()
     const { userProfile, addUser, removeUser } = useAuthStore();
     const [searchValue, setSearchValue] = useState("");
     const router = useRouter();
+
+    useEffect(() => {
+        setUser(userProfile)
+    }, [userProfile]);
 
     const handleSearch = (e: { preventDefault: () => void }) => {
         e.preventDefault();
@@ -51,10 +57,10 @@ const Navbar = () => {
                             <span className='hidden md:block'>Upload</span>
                         </button>
                     </Link>
-                    {userProfile.image &&
-                        <Link href='/'>
+                    {user?.image &&
+                        <Link href={`/profile/${user?._id}`}>
                             <>
-                                <Image width={40} height={40} className='rounded-full cursor-pointer' src={userProfile.image} alt="profile image"
+                                <Image width={40} height={40} className='rounded-full cursor-pointer' src={user.image} alt="profile image"
                                 />
                             </>
                         </Link>}
