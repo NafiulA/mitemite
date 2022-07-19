@@ -9,7 +9,7 @@ import { IoMdAdd } from 'react-icons/io';
 import logo from "../utils/tiktik-logo.png"
 import { createOrGetUser } from '../utils';
 import useAuthStore from '../store/authstore';
-import { IUser } from '../types';
+
 
 const Navbar = () => {
     const { userProfile, addUser, removeUser } = useAuthStore();
