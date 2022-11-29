@@ -31,6 +31,7 @@ const Upload = () => {
             }).then(
                 (data) => {
                     setVideoAsset(data);
+                    setIsUploading(false);
                 }
             )
         }
